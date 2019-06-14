@@ -10,7 +10,7 @@ export function requestUsersSearch(_query, _order = 'desc') {
         dispatch(requestLoading());
 
         return axios
-            .get('users?q='+ _query +'&order='+ _order)
+            .get('search/users?q='+ _query +'&order='+ _order)
             .then(response => dispatch(fetchUsersSearch(response.data)))
             .catch(error => dispatch(requestRejected(error.message)));
     }

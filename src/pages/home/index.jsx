@@ -2,62 +2,67 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
-import LoadingRequisition from '../../components/loading';
 import {requestUsersSearch} from '../../actions/users';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
+import ListUsers from '../../components/list-users';
 
 class IndexPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            query: '',
             orderby: 'name'
         }
+
+        this.searchForUsers = this.searchForUsers.bind(this);
+    }
+
+    // função responsável por fazer consulta no GitHub por usuários
+    searchForUsers = event => {        
+        let usersQuery = event.target.value;
+        
+        if ( usersQuery !== this.state.query ) {
+
+            this.setState({ query: usersQuery });
+            this.props.requestUsersSearch(usersQuery);
+            
+        }
+        
     }
 
     render() {
-        const { users } = this.props;
+        const { listingUsers, fetchingUsers } = this.props;
+        
+        return(
+            <div className="App">
+                <Header />
 
-        if ( users.length > 0 ) {
-            return(
-                <div className="App">
-                    <Header />
+                <div className="container">
+                    <TextField
+                        id="users-query"
+                        label="Search for Github users"
+                        type="search"
+                        className="input-text"
+                        margin="normal"
+                        variant="outlined"
+                        onBlur={this.searchForUsers}
+                    />
 
-                    <div className="container">
-                        
-                    </div>
-
-                    <Footer />
+                    <ListUsers list={listingUsers} query={this.state.query} fetching={fetchingUsers} />
                 </div>
-            );
-        } else {
-            return(
-                <div className="App">
-                    <Header />
 
-                    <div className="container">
-                        <TextField
-                            id="outlined-search"
-                            label="Search field"
-                            type="search"
-                            className="input-text"
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </div>
-
-                    <Footer />
-                </div>
-            );
-        }
+                <Footer />
+            </div>
+        );
 
     }
 }
 
 const mapStateProps = (state) => {
     return {
-        users: state.users
+        listingUsers: state.users.userInfos,
+        fetchingUsers: state.users.fetching
     }
 }
 
