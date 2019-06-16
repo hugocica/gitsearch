@@ -5,10 +5,13 @@ import {Link} from 'react-router-dom';
 class Footer extends Component {
     render() {
         return (
-            <header>
-                <Link to="/">
-                    Logo
-                </Link>
+            <header className="main-header">
+                <div className="container">
+                    <Link to="/">
+                        <i className="fa fa-github" aria-hidden="true"></i>
+                        Hugo Cicarelli's Github API Connect
+                    </Link>
+                </div>
             </header>
         );
     }

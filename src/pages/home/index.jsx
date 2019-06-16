@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
+import ListUsers from '../../components/list-users';
 import {requestUsersSearch} from '../../actions/users';
 import TextField from '@material-ui/core/TextField';
-import ListUsers from '../../components/list-users';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
 class IndexPage extends Component {
     constructor(props) {
@@ -21,17 +23,20 @@ class IndexPage extends Component {
     }
 
     // função responsável por fazer consulta no GitHub por usuários
-    searchForUsers = event => {        
-        let usersQuery = event.target.value;     
+    searchForUsers = () => {        
+        let usersQuery = document.querySelector('#users-query').value;     
+     
+        localStorage.setItem('userQuery', JSON.stringify(usersQuery));
+        this.props.requestUsersSearch(usersQuery);
         
+    }
+
+    handleEnterPress = event => {
         if ( event.keyCode === 13 ) {
 
-            localStorage.setItem('userQuery', JSON.stringify(usersQuery));
-
-            this.props.requestUsersSearch(usersQuery);
+            this.searchForUsers();
             
         }
-        
     }
 
     handleChange = event => {
@@ -54,17 +59,23 @@ class IndexPage extends Component {
                 <Header />
 
                 <div className="container main-container">
-                    <TextField
-                        id="users-query"
-                        label="Search for Github users"
-                        type="search"
-                        className="input-text"
-                        margin="normal"
-                        variant="outlined"
-                        onKeyUp={this.searchForUsers}
-                        onChange={this.handleChange}
-                        value={this.state.query}
-                    />
+                    <div className="search-wrapper">
+                        <TextField
+                            id="users-query"
+                            label="Search for Github users"
+                            type="search"
+                            className="input-text"
+                            margin="normal"
+                            variant="outlined"
+                            onKeyUp={this.handleEnterPress}
+                            onChange={this.handleChange}
+                            value={this.state.query}
+                        />
+                        <Button variant="contained" color="primary" className="btn" id="search-button" onClick={this.searchForUsers}>
+                            <Icon style={{ marginRight: 5 }}>search</Icon>
+                            Search
+                        </Button>
+                    </div>
 
                     <ListUsers list={listingUsers} query={this.state.query} fetching={fetchingUsers} />
                 </div>

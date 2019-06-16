@@ -16,7 +16,7 @@ export default [
         key: 'user.index'
     },
     {
-        path: '/user/:userName/repository',
+        path: '/user/:userName/repository/:repoName',
         exact: true,
         component: RepoPage,
         key: 'repos.index'

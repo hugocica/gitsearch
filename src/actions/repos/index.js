@@ -1,5 +1,6 @@
 import {
     FETCH_REPOS,
+    FETCH_COMMITS,
     REQUEST_LOADING_REPOS,
     REQUEST_REJECTED_REPOS
 } from './action';
@@ -12,6 +13,17 @@ export function requestRepositories(_user, _sort = 'updated') {
         return axios
             .get('users/'+ _user +'/repos?sort='+ _sort)
             .then(response => dispatch(fetchRepositories(response.data)))
+            .catch(error => dispatch(requestRejected(error.message)));
+    }
+}
+
+export function requestCommits(_user, _repo) {
+    return dispatch => {
+        dispatch(requestLoading());
+
+        return axios
+            .get('repos/'+ _user +'/'+ _repo +'/commits')
+            .then(response => dispatch(fetchCommits(response.data)))
             .catch(error => dispatch(requestRejected(error.message)));
     }
 }
@@ -32,6 +44,13 @@ export function requestRejected(response) {
 function fetchRepositories(response) {
     return {
         type: FETCH_REPOS,
+        payload: response
+    };
+}
+
+function fetchCommits(response) {
+    return {
+        type: FETCH_COMMITS,
         payload: response
     };
 }

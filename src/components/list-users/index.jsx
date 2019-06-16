@@ -20,9 +20,7 @@ class ListUsers extends Component {
      */
     renderList = () => {        
         // caso a busca houver retornado
-        if ( typeof this.props.list.total_count !== typeof undefined && this.props.list.total_count > 0  ) {
-
-            if ( typeof this.props.list.items !== typeof undefined ) {
+        if ( typeof this.props.list !== typeof undefined && this.props.list.total_count > 0  ) {
                 
                 return this.props.list.items.map((item, key) => {
                     return <div className="list-item" key={`user-${key}`}>
@@ -37,8 +35,6 @@ class ListUsers extends Component {
                     </Link>
                     </div>
                 });
-
-            }
 
         } else {
 
@@ -61,7 +57,7 @@ class ListUsers extends Component {
         }
         
         
-        if ( typeof list.length != 0 && query !== '' ) {
+        if ( list.length !== 0 && query !== '' ) {
 
             return (
                 <div className="list-container">

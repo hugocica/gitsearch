@@ -1,11 +1,13 @@
 import {
     FETCH_REPOS,
+    FETCH_COMMITS,
     REQUEST_LOADING_REPOS,
     REQUEST_REJECTED_REPOS
 } from '../actions/repos/action';
 
 const INITIAL_STATE = {
     reposList: [],
+    commits: [],
     fetching: false,
     fetched: false,
     error: null,
@@ -30,6 +32,13 @@ export default function (state = INITIAL_STATE, action) {
             return {
                 ...state,
                 reposList: action.payload,
+                fetching: INITIAL_STATE.fetching,
+                fetched: true
+            };
+        case FETCH_COMMITS:
+            return {
+                ...state,
+                commits: action.payload,
                 fetching: INITIAL_STATE.fetching,
                 fetched: true
             };

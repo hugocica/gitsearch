@@ -26,7 +26,7 @@ class ListRepositories extends Component {
                 return repositories.map((item, key) => {
                     console.log(item)
                     return <li className="list-item" key={`repos-${key}`}>
-                        <Link to={`/user/${user}/repository`}>
+                        <Link to={`/user/${user}/repository/${item.name}`}>
 
                             {item.name}
                         </Link>
