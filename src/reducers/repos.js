@@ -1,13 +1,11 @@
 import {
-    FETCH_LIST_USERS,
-    FETCH_USER_INFO,
-    REQUEST_LOADING_LIST_USERS,
-    REQUEST_REJECTED_LIST_USERS
-} from '../actions/users/action';
+    FETCH_REPOS,
+    REQUEST_LOADING_REPOS,
+    REQUEST_REJECTED_REPOS
+} from '../actions/repos/action';
 
 const INITIAL_STATE = {
-    usersInfos: [],
-    userInfo: [],
+    reposList: [],
     fetching: false,
     fetched: false,
     error: null,
@@ -15,30 +13,23 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
-        case REQUEST_LOADING_LIST_USERS:
+        case REQUEST_LOADING_REPOS:
             return {
                 ...state,
                 fetching: true,
                 fetched: INITIAL_STATE.fetched
             };
-        case REQUEST_REJECTED_LIST_USERS:
+        case REQUEST_REJECTED_REPOS:
             return {
                 ...state,
                 fetching: INITIAL_STATE.fetching,
                 fetched: INITIAL_STATE.fetched,
                 error: action.payload
             };
-        case FETCH_LIST_USERS:
+        case FETCH_REPOS:
             return {
                 ...state,
-                usersInfos: action.payload,
-                fetching: INITIAL_STATE.fetching,
-                fetched: true
-            };
-        case FETCH_USER_INFO:
-            return {
-                ...state,
-                userInfo: action.payload,
+                reposList: action.payload,
                 fetching: INITIAL_STATE.fetching,
                 fetched: true
             };

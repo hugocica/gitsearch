@@ -18,27 +18,24 @@ class ListUsers extends Component {
     /**
      * Função que renderiza a lista de usuários em si, percorrendo os usuário que retornaram da busca
      */
-    renderList = () => {
-        
-        console.log(this.props.list.total_count);
-        
+    renderList = () => {        
         // caso a busca houver retornado
         if ( typeof this.props.list.total_count !== typeof undefined && this.props.list.total_count > 0  ) {
 
             if ( typeof this.props.list.items !== typeof undefined ) {
                 
                 return this.props.list.items.map((item, key) => {
-                    return <Link key={`user-${key}`} to={{
-                            pathname: "/user/",
+                    return <div className="list-item" key={`user-${key}`}>
+                        <Link to={{
+                            pathname: "/user/"+ item.login,
                             state: {
                                 userChosen: item.login
                             }
                         }}>
-                        <div className="list-item">
-                            <img src={item.avatar_url} alt=""/>
-                            <h2>{item.login}</h2>
-                        </div>
+                        <img className="avatar" src={item.avatar_url} alt=""/>
+                        <h2 className="user-name">{item.login}</h2>
                     </Link>
+                    </div>
                 });
 
             }
@@ -64,7 +61,7 @@ class ListUsers extends Component {
         }
         
         
-        if ( typeof list.length === typeof undefined && query !== '' ) {
+        if ( typeof list.length != 0 && query !== '' ) {
 
             return (
                 <div className="list-container">

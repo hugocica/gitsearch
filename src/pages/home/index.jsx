@@ -10,8 +10,10 @@ class IndexPage extends Component {
     constructor(props) {
         super(props);
 
+        const user = JSON.parse(localStorage.getItem('userQuery'));        
+
         this.state = {
-            query: '',
+            query: ( user !== null ) ? user : 'Hugo Cicarelli',
             orderby: 'name'
         }
 
@@ -20,15 +22,28 @@ class IndexPage extends Component {
 
     // função responsável por fazer consulta no GitHub por usuários
     searchForUsers = event => {        
-        let usersQuery = event.target.value;
+        let usersQuery = event.target.value;     
         
-        if ( usersQuery !== this.state.query ) {
+        if ( event.keyCode === 13 ) {
 
-            this.setState({ query: usersQuery });
+            localStorage.setItem('userQuery', JSON.stringify(usersQuery));
+
             this.props.requestUsersSearch(usersQuery);
             
         }
         
+    }
+
+    handleChange = event => {
+        let usersQuery = event.target.value;     
+        this.setState({ query: usersQuery });
+        
+    }
+
+    componentDidMount() {
+        if ( this.state.query !== '' ) {
+            this.props.requestUsersSearch(this.state.query);
+        }
     }
 
     render() {
@@ -38,7 +53,7 @@ class IndexPage extends Component {
             <div className="App">
                 <Header />
 
-                <div className="container">
+                <div className="container main-container">
                     <TextField
                         id="users-query"
                         label="Search for Github users"
@@ -46,7 +61,9 @@ class IndexPage extends Component {
                         className="input-text"
                         margin="normal"
                         variant="outlined"
-                        onBlur={this.searchForUsers}
+                        onKeyUp={this.searchForUsers}
+                        onChange={this.handleChange}
+                        value={this.state.query}
                     />
 
                     <ListUsers list={listingUsers} query={this.state.query} fetching={fetchingUsers} />
@@ -61,7 +78,7 @@ class IndexPage extends Component {
 
 const mapStateProps = (state) => {
     return {
-        listingUsers: state.users.userInfos,
+        listingUsers: state.users.usersInfos,
         fetchingUsers: state.users.fetching
     }
 }

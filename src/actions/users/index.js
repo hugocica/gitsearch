@@ -1,5 +1,6 @@
 import {
     FETCH_LIST_USERS,
+    FETCH_USER_INFO,
     REQUEST_LOADING_LIST_USERS,
     REQUEST_REJECTED_LIST_USERS
 } from './action';
@@ -13,6 +14,17 @@ export function requestUsersSearch(_query, _order = 'desc') {
             .get('search/users?q='+ _query +'&order='+ _order)
             .then(response => dispatch(fetchUsersSearch(response.data)))
             .catch(error => dispatch(requestRejected(error.message)));
+    }
+}
+
+export function requestUserInfo(_user) {
+    return dispatch => {
+        dispatch(requestLoading());
+
+        return axios
+            .get('users/'+ _user)
+            .then(response => dispatch(fetchUserInfo(response.data)))
+            .catch(error => dispatch(requestRejected(error.message)))
     }
 }
 
@@ -34,4 +46,11 @@ function fetchUsersSearch(response) {
         type: FETCH_LIST_USERS,
         payload: response
     };
+}
+
+function fetchUserInfo(response) {
+    return {
+        type: FETCH_USER_INFO,
+        payload: response
+    }
 }

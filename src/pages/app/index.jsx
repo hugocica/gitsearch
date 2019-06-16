@@ -5,7 +5,7 @@ import routesConfig from '../../routes/config';
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className="main-wrapper">
                 {Routes(routesConfig)}
             </div>
         );
