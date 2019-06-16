@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import LoadingRequisition from '../../components/loading';
 import {requestRepositories} from '../../actions/repos';
 import { Link } from 'react-router-dom';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Icon from '@material-ui/core/Icon';
 
 class ListRepositories extends Component {
     componentWillMount() {
@@ -24,13 +28,14 @@ class ListRepositories extends Component {
             if ( repositories.length > 0 ) {
     
                 return repositories.map((item, key) => {
-                    console.log(item)
-                    return <li className="list-item" key={`repos-${key}`}>
-                        <Link to={`/user/${user}/repository/${item.name}`}>
-
-                            {item.name}
-                        </Link>
-                    </li>
+                    return <ListItem button className="list-item" key={`repos-${key}`}>
+                            <Link to={`/user/${user}/repository/${item.name}`}>
+                                {item.name}
+                                <ListItemIcon>
+                                    <Icon>add</Icon>
+                                </ListItemIcon>
+                            </Link>
+                        </ListItem>
                 });
     
             } else {
@@ -42,9 +47,9 @@ class ListRepositories extends Component {
 
     render() {
         return(
-            <ul className="list-container">
+            <List component="nav" aria-label="Secondary mailbox folders" className="list-container repos">
                 {this.renderRepositories()}
-            </ul>
+            </List>
         );
     }
 }

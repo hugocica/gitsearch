@@ -47,6 +47,7 @@ body {
         display: flex;
         align-items: center;
         padding: 30px 0;
+        margin-top: 30px;
 
         @include phone {
             height: auto;
@@ -182,10 +183,21 @@ body {
         justify-content: space-between;
         padding-left: 0;
         list-style: none;
+
+        &.repos {
+            background-color: $dale-lightgray;
+            border-radius: 4px;
+
+            a {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                align-items: center;
+            }
+        }
     }
     &-item {
         display: flex;
-        flex-direction: column;
         border: 1px solid #e3e3e3;
         padding: 10px 15px;
         border-radius: 4px;
@@ -204,6 +216,7 @@ body {
 .info {
     &-container {
         width: 100%;
+        margin-bottom: 30px;
     }
 }
 .user {
@@ -231,6 +244,26 @@ body {
                     flex: 1;
                 }
             }
+        }
+    }
+}
+.commits {
+    &-container {
+        .commits {
+            &-item {
+                flex-direction: column;
+                align-items: flex-start;
+                border: 2px solid #e3e3e3;
+                border-radius: 4px;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+.repo {
+    &-info {
+        &-wrapper {
+            width: 100%;
         }
     }
 }

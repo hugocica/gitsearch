@@ -35,7 +35,7 @@ class UserInfos extends Component {
                                 {userInfo.following}
                             </p>
                             <p className="user-followers">
-                                <strong>Followers:</strong>
+                                <strong>Followers: </strong>
                                 {userInfo.followers}
                             </p>
                         </div>

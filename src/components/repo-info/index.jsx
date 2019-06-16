@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {requestCommits} from '../../actions/repos';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 class RepoInfos extends Component {
     componentWillMount() {
@@ -14,7 +16,7 @@ class RepoInfos extends Component {
         if ( commits.length !== 0 && !fetching ) {
             
             return commits.map((item, key) => {
-                return <li className="commits-item" key={`commit-${key}`}>
+                return <ListItem className="commits-item" key={`commit-${key}`}>
                     <p className="commit-message">
                         <strong>Message: </strong>    
                         {item.commit.message}
@@ -27,7 +29,7 @@ class RepoInfos extends Component {
                         <strong>Date of commit: </strong>
                         {item.commit.author.date}
                     </p>
-                </li>
+                </ListItem>
             })
 
 
@@ -50,9 +52,9 @@ class RepoInfos extends Component {
                         Repository commits
                     </h2>
 
-                    <ul className="commits-container">
+                    <List component="nav" aria-label="Secondary mailbox folders" className="commits-container">
                         {this.renderInfo()}
-                    </ul>
+                    </List>
                 </div>
             </div>
         );
