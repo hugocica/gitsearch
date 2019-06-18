@@ -12,6 +12,9 @@ class IndexPage extends Component {
     constructor(props) {
         super(props);
 
+        // consulta o localStorage para ver se tem algum valor salvo (buscas anteriores)
+        // caso tenha alguma consulta, retornar com o valor dela preenchido
+        // caso não tenha nenhum valor, retornar com o meu nome, para Exemplo de funcionamento.
         const user = JSON.parse(localStorage.getItem('userQuery'));        
 
         this.state = {
@@ -31,6 +34,9 @@ class IndexPage extends Component {
         
     }
 
+    /**
+     * Dá um trigger na consulta na API quando é pressionado Enter, dentro do input de busca
+     */
     handleEnterPress = event => {
         if ( event.keyCode === 13 ) {
 
@@ -39,6 +45,10 @@ class IndexPage extends Component {
         }
     }
 
+    /**
+     * atualiza o valor do estado 'query', para que permita que o valor dentro do input seja alterado 
+     * (caso contrário, ele permitiria o mesmo valor sempre, não permitindo que escrevesse um novo valor)
+     */
     handleChange = event => {
         let usersQuery = event.target.value;     
         this.setState({ query: usersQuery });

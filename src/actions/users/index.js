@@ -6,6 +6,14 @@ import {
 } from './action';
 import axios from '../../utils/axios';
 
+/**
+ * Faz um chamada get no endpoint de usuários, da API do Github
+ * Busca pelo termo (tanto username, como nome completo)
+ * Ordenação padrão pelos mais recentes
+ * Retorna um JSON contendo os dados dos usuários, como avatar, nome
+ * 
+ * TODO: adicionar ordenação na página da busca
+ */
 export function requestUsersSearch(_query, _order = 'desc') {
     return dispatch => {
         dispatch(requestLoading());

@@ -3,12 +3,21 @@ import {connect} from 'react-redux';
 import {requestCommits} from '../../actions/repos';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import LoadingRequisition from '../../components/loading';
 
+/**
+ * Componente responsável por mostrar informações referentes a um determinado repositório, como commits etc
+ */
 class RepoInfos extends Component {
     componentWillMount() {
+        // requestCommits: busca na API do Github as informações dos commits referentes a um determinado repositório.
+        // É necessário passar o usuário em si, e o repositório que irá buscar
         this.props.requestCommits(this.props.user, this.props.repo);
     }
 
+    /**
+     * Renderiza as informações referentes aos commits que foram retornados
+     */
     renderInfo = () => {
 
         const { commits, fetching } = this.props;        
@@ -32,6 +41,9 @@ class RepoInfos extends Component {
                 </ListItem>
             })
 
+        } else if ( fetching ) {
+            
+            return <LoadingRequisition />
 
         }
 

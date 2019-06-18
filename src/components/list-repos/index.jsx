@@ -9,12 +9,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
 
 class ListRepositories extends Component {
+    /**
+     * Antes de renderizar o componente, a API do Github é consultada, retornando todos os repositórios de um determinado usuário
+     */
     componentWillMount() {
         const { user } = this.props;
         
         this.props.requestRepositories(user)
     }
 
+    /**
+     * Função que renderiza toda a lista de repositórios que retornou
+     */
     renderRepositories = () => {
         const { repositories, fetching, user } = this.props;
         

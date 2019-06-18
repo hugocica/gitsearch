@@ -6,6 +6,9 @@ import {
 } from './action';
 import axios from '../../utils/axios';
 
+/**
+ * Lista todos os repositórios de um determinado usuário
+ */
 export function requestRepositories(_user, _sort = 'updated') {
     return dispatch => {
         dispatch(requestLoading());
@@ -17,6 +20,9 @@ export function requestRepositories(_user, _sort = 'updated') {
     }
 }
 
+/**
+ * Bate no endpoint do Github no qual é possível pegar as informações de todos os commits de um repositório
+ */
 export function requestCommits(_user, _repo) {
     return dispatch => {
         dispatch(requestLoading());
