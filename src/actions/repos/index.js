@@ -1,5 +1,6 @@
 import {
     FETCH_REPOS,
+    FETCH_REPO,
     FETCH_COMMITS,
     REQUEST_LOADING_REPOS,
     REQUEST_REJECTED_REPOS
@@ -34,6 +35,20 @@ export function requestCommits(_user, _repo) {
     }
 }
 
+/**
+ * Bate no endpoint do Github no qual é possível pegar as informações de de um determinado repositório
+ */
+export function requestRepoInfo(_user, _repo) {
+    return dispatch => {
+        dispatch(requestLoading());
+
+        return axios
+            .get('repos/'+ _user +'/'+ _repo +'/commits')
+            .then(response => dispatch(fetchRepository(response.data)))
+            .catch(error => dispatch(requestRejected(error.message)));
+    }
+}
+
 export function requestLoading() {
     return {
         type: REQUEST_LOADING_REPOS
@@ -50,6 +65,13 @@ export function requestRejected(response) {
 function fetchRepositories(response) {
     return {
         type: FETCH_REPOS,
+        payload: response
+    };
+}
+
+function fetchRepository(response) {
+    return {
+        type: FETCH_REPO,
         payload: response
     };
 }

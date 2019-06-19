@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 import {requestCommits} from '../../actions/repos';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import LoadingRequisition from '../../components/loading';
+import LoadingRequisition from '../loading';
 
 /**
  * Componente responsável por mostrar informações referentes a um determinado repositório, como commits etc
  */
-class RepoInfos extends Component {
+class CommitInfos extends Component {
     componentWillMount() {
         // requestCommits: busca na API do Github as informações dos commits referentes a um determinado repositório.
         // É necessário passar o usuário em si, e o repositório que irá buscar
@@ -25,6 +25,9 @@ class RepoInfos extends Component {
         if ( commits.length !== 0 && !fetching ) {
             
             return commits.map((item, key) => {
+                let today = new Date(item.commit.author.date);
+                let commitDate = today.getDate() + "/"+ parseInt(today.getMonth()+1) +"/"+today.getFullYear();
+
                 return <ListItem className="commits-item" key={`commit-${key}`}>
                     <p className="commit-message">
                         <strong>Message: </strong>    
@@ -36,7 +39,7 @@ class RepoInfos extends Component {
                     </p>
                     <p className="commit-date">
                         <strong>Date of commit: </strong>
-                        {item.commit.author.date}
+                        {commitDate}
                     </p>
                 </ListItem>
             })
@@ -52,13 +55,7 @@ class RepoInfos extends Component {
     render() {
         
         return (
-            <div className="repo-info-wrapper">
-                {/*
-                <div className="repo-info">
-                    <div className="section-title">Repository Infos</div>
-                </div>
-                */}
-
+            <div className="repo-info-wrapper">        
                 <div className="repo-commits-wrapper">
                     <h2 className="section-title">
                         Repository commits
@@ -81,4 +78,4 @@ const mapStateProps = (state) => {
     }
 }
 
-export default connect(mapStateProps, {requestCommits})(RepoInfos);
+export default connect(mapStateProps, {requestCommits})(CommitInfos);

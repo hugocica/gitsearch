@@ -6,7 +6,8 @@ body {
 .loading-gif {
   flex: 1;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  width: 100%; }
 
 .App {
   display: flex;
@@ -136,22 +137,42 @@ body {
     border-radius: 4px; }
     .list-container.repos a {
       display: flex;
-      justify-content: space-between;
-      width: 100%;
-      align-items: center; }
+      justify-content: center;
+      width: auto;
+      align-items: center;
+      height: 40px; }
 
 .list-item {
   display: flex;
   border: 1px solid #e3e3e3;
   padding: 10px 15px;
   border-radius: 4px;
-  margin: 10px 0; }
-  .list-item .avatar {
-    height: 150px; }
+  margin: 10px 0;
+  flex-wrap: wrap; }
+  @media (min-width: 319px) and (max-width: 767px) {
+    .list-item {
+      justify-content: center; } }
   .list-item a {
     color: #484849;
     text-decoration: none;
     text-align: center; }
+  .list-item .avatar {
+    height: 150px; }
+  .list-item .meta-content {
+    width: 100%;
+    display: flex;
+    align-items: center; }
+    .list-item .meta-content .content {
+      flex: 1; }
+      .list-item .meta-content .content p {
+        text-align: left; }
+    .list-item .meta-content .btn-link {
+      color: white;
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px; }
 
 .info-container {
   width: 100%;

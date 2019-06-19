@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import {requestUsersSearch} from '../../actions/users';
-import RepoInfos from '../../components/repo-info';
+import CommitInfos from '../../components/commit-info';
 
 class RepoPage extends Component {
     render() {       
@@ -15,7 +15,7 @@ class RepoPage extends Component {
                 <Header />
 
                 <div className="container">
-                   <RepoInfos user={userName} repo={repoName} />
+                   <CommitInfos user={userName} repo={repoName} />
                 </div>
 
                 <Footer />

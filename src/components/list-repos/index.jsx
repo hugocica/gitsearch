@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
+import Button from '@material-ui/core/Button';
 
 class ListRepositories extends Component {
     /**
@@ -34,13 +35,30 @@ class ListRepositories extends Component {
             if ( repositories.length > 0 ) {
     
                 return repositories.map((item, key) => {
+                    console.log(item);
+                    
                     return <ListItem button className="list-item" key={`repos-${key}`}>
-                            <Link to={`/user/${user}/repository/${item.name}`}>
-                                {item.name}
+                            <div className="meta-content">
+                                <div className="content">
+                                    <p>Repo Name: {item.name}</p>
+                                    <p>{ ( item.description !== null ) ? `Description: ${item.name}` : `` }</p>
+                                    <p>Stars: {item.stargazers_count}</p>
+                                    <p>Language: {item.language}</p>
+                                </div>
+                                <Button variant="contained" color="primary" className="btn-link" href={item.html_url}>
+                                    Go to repository
+                                </Button>
+                            </div>
+                            <Button
+                                component={Link}
+                                variant="contained"
+                                to={`/user/${user}/repository/${item.name}`}
+                            >
                                 <ListItemIcon>
+                                    See latest commits
                                     <Icon>add</Icon>
                                 </ListItemIcon>
-                            </Link>
+                            </Button>
                         </ListItem>
                 });
     
