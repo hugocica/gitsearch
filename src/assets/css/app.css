@@ -161,7 +161,8 @@ body {
   .list-item .meta-content {
     width: 100%;
     display: flex;
-    align-items: center; }
+    align-items: center;
+    flex: 1; }
     .list-item .meta-content .content {
       flex: 1; }
       .list-item .meta-content .content p {

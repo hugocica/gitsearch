@@ -5,7 +5,6 @@ import {requestRepositories} from '../../actions/repos';
 import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 
@@ -35,7 +34,6 @@ class ListRepositories extends Component {
             if ( repositories.length > 0 ) {
     
                 return repositories.map((item, key) => {
-                    console.log(item);
                     
                     return <ListItem button className="list-item" key={`repos-${key}`}>
                             <div className="meta-content">
@@ -54,10 +52,8 @@ class ListRepositories extends Component {
                                 variant="contained"
                                 to={`/user/${user}/repository/${item.name}`}
                             >
-                                <ListItemIcon>
-                                    See latest commits
-                                    <Icon>add</Icon>
-                                </ListItemIcon>
+                                See latest commits
+                                <Icon>add</Icon>
                             </Button>
                         </ListItem>
                 });

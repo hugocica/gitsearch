@@ -51,8 +51,7 @@ class IndexPage extends Component {
      */
     handleChange = event => {
         let usersQuery = event.target.value;     
-        this.setState({ query: usersQuery });
-        
+        this.setState({ query: usersQuery }); 
     }
 
     componentDidMount() {
